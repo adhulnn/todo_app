@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center bg-primary mb-0">Edit Task</h2>
+            <form method="post" class="shadow p-4">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{% url 'task_todo' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    body{
+        background-color:azure;
+    }
+</style>
+{%endblock%}

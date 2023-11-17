@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container p-2" >
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="text-center bg-primary font-weight-bold" style="margin-top: 80px;margin-bottom: 0;">Add Task</h2>
+                <form action="" method="post" class="shadow p-4">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="task">Task Name</label>
+                        <input type="text" class="form-control" name="task" placeholder="Enter the Task Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="task">Notes</label>
+                        <input type="text" class="form-control" name="notes" placeholder="Additional Notes(optional)">
+                    </div>
+                    <div class="form-group">
+                        <label for="task">Due Date</label>
+                        <input type="date" class="form-control" name="due_date" placeholder="Enter the Task Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select class="form-control" id="priority" name="priority">
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h2 class="text-center  font-weight-bold">Active Tasks</h2>
+                {% for i in tasks %}
+                <div class="card   m-2 shadow" >
+                    <div class="card-body">
+                      <h5 class="card-title font-weight-bold">Task {{i.id}} : {{i.title}}</h5>
+                      <h6 class="card-title text-muted">Due on : {{i.due_date}} </h6>
+                      <h6 class="card-subtitle mb-2  font-weight-bold text-danger">{{i.priority}}</h6>
+                      <p class="card-text">{{i.notes}}</p>
+                      <a href="{% url 'edit_task' i.id %}" class="card-link">Edit</a>
+                      <a href="{% url 'complete' i.id %}" class="card-link">Done</a>
+                    </div>
+                  </div>
+                {%endfor%}
+            </div>
+            <div class="col-md-4">
+                <h2 class="text-center font-weight-bold">Completed Tasks</h2>
+                {% for i in ctasks%}
+                <div class="card  card-block m-2 shadow" >
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Task {{i.id}} : {{i.title}}</h5>
+                        <h6 class="card-title text-muted">Due on : {{i.due_date}} </h6>
+                        <h6 class="card-subtitle mb-2  font-weight-bold text-danger">{{i.priority}}</h6>
+                        <p class="card-text">{{i.notes}}</p>
+                      <a href="{% url 'delete_task' i.id %}" class="card-link">Delete</a>
+                    </div>
+                  </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    <style>
+        body{
+            background-color:azure;
+        }
+    </style>
+{% endblock %}
